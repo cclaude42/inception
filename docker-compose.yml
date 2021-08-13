@@ -1,1 +1,5 @@
-// Projecto staarto !
+services:
+  nginx:
+    build: ./srcs/nginx
+    ports:
+      - "443:443"
