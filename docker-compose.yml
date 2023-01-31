@@ -1,5 +1,23 @@
 services:
   nginx:
-    build: ./srcs/nginx
+    build: ./requirements/nginx
+    env_file: .env
+    tty: true
     ports:
       - "443:443"
+  wordpress:
+    build: ./requirements/wordpress
+    env_file: .env
+    tty: true
+    ports:
+      - "9000:9000"
+  mariadb:
+    build: ./requirements/mariadb
+    env_file: .env
+    tty: true
+    ports:
+      - "3306:3306"
+    volumes:
+      - type: bind
+        source: /home/cclaude/data/mariadb
+        target: /var/lib/mysql
