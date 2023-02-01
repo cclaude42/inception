@@ -3,7 +3,8 @@ FROM debian:bullseye
 LABEL author="César Claude (cclaude42)"
 
 RUN apt -qq update -y && \
-	apt -qq install -y nginx
+	apt -qq install -y nginx curl
+	# REMOVE CURL
 
 RUN rm -rf /etc/nginx/sites-enabled/default && \
 	rm -rf /etc/nginx/sites-available/default
