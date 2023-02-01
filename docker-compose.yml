@@ -7,6 +7,10 @@ services:
       - "443:443"
     networks:
       - front
+    volumes:
+      - "wpfiles:/var/www/html"
+    depends_on:
+      - wordpress
   wordpress:
     build: ./requirements/wordpress
     env_file: .env
@@ -16,23 +20,33 @@ services:
     networks:
       - front
       - back
+    volumes:
+      - "wpfiles:/var/www/html"
+    depends_on:
+      - mariadb
   mariadb:
     build: ./requirements/mariadb
     env_file: .env
     tty: true
     ports:
       - "3306:3306"
-    volumes:
-      - "dbfiles:/var/lib/mysql"
     networks:
       - back
+    volumes:
+      - "dbfiles:/var/lib/mysql"
 networks:
   front: {}
   back: {}
 volumes:
+  wpfiles:
+    driver: local
+    driver_opts:
+      device: /home/cclaude/data/wordpress
+      o: bind
+      type: none
   dbfiles:
     driver: local
     driver_opts:
-      device: /home/cclaude
+      device: /home/cclaude/data/mariadb
       o: bind
       type: none

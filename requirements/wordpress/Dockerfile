@@ -10,7 +10,7 @@ RUN apt -qq install -y gnupg2 ca-certificates apt-transport-https software-prope
 	curl --output - https://packages.sury.org/php/apt.gpg | apt-key add -
 
 RUN	apt -qq update -y && \
-	apt -qq install -y php8.2 php-fpm php-curl php-gd php-intl php-mbstring php-soap php-xml php-xmlrpc php-zip
+	apt -qq install -y php8.2 php-fpm php-curl php-gd php-intl php-mbstring php-soap php-xml php-xmlrpc php-zip php-mysql
 
 RUN curl -LO https://wordpress.org/latest.tar.gz && \
 	mkdir -p /var/www && \
@@ -18,5 +18,7 @@ RUN curl -LO https://wordpress.org/latest.tar.gz && \
 
 COPY ./wp-config.php /wordpress/wp-config.php
 COPY ./setup.sh /setup.sh
+
+EXPOSE 9000
 
 CMD ["/bin/bash", "/setup.sh"]

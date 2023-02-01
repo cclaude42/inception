@@ -1,6 +1,6 @@
 #!/bin/bash
 
-apt -qq install -y mariadb-server
+apt -qq install -y mariadb-server > /dev/null
 service mariadb start
 
 echo "CREATE DATABASE wordpress;" | mysql
