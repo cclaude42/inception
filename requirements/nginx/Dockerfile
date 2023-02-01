@@ -2,8 +2,8 @@ FROM debian:bullseye
 
 LABEL author="César Claude (cclaude42)"
 
-RUN apt update && \
-	apt install -y -qq nginx
+RUN apt -qq update -y && \
+	apt -qq install -y nginx
 
 RUN rm -rf /etc/nginx/sites-enabled/default && \
 	rm -rf /etc/nginx/sites-available/default

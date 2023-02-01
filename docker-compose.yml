@@ -5,21 +5,34 @@ services:
     tty: true
     ports:
       - "443:443"
+    networks:
+      - front
   wordpress:
     build: ./requirements/wordpress
     env_file: .env
     tty: true
-    stdin_open: true
     ports:
       - "9000:9000"
+    networks:
+      - front
+      - back
   mariadb:
     build: ./requirements/mariadb
     env_file: .env
     tty: true
-    stdin_open: true
     ports:
       - "3306:3306"
     volumes:
-      - type: bind
-        source: /home/cclaude/data/mariadb
-        target: /var/lib/mysql
+      - "dbfiles:/var/lib/mysql"
+    networks:
+      - back
+networks:
+  front: {}
+  back: {}
+volumes:
+  dbfiles:
+    driver: local
+    driver_opts:
+      device: /home/cclaude
+      o: bind
+      type: none
