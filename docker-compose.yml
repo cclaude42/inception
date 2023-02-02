@@ -3,36 +3,27 @@ services:
   nginx:
     build: ./srcs/nginx
     restart: always
-    tty: true
     ports:
       - "443:443"
     networks:
       - front
     volumes:
       - "wpfiles:/var/www/html"
-    depends_on:
-      - wordpress
   wordpress:
     build: ./srcs/wordpress
     restart: always
     tty: true
     env_file: .env
-    ports:
-      - "9000:9000"
     networks:
       - front
       - back
     volumes:
       - "wpfiles:/var/www/html"
-    depends_on:
-      - mariadb
   mariadb:
     build: ./srcs/mariadb
     restart: always
     tty: true
     env_file: .env
-    ports:
-      - "3306:3306"
     networks:
       - back
     volumes:
