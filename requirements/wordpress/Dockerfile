@@ -19,6 +19,4 @@ RUN curl -LO https://wordpress.org/latest.tar.gz && \
 COPY ./wp-config.php /wordpress/wp-config.php
 COPY ./setup.sh /setup.sh
 
-EXPOSE 9000
-
 CMD ["/bin/bash", "/setup.sh"]
