@@ -2,8 +2,8 @@ FROM debian:bullseye
 
 LABEL author="César Claude (cclaude42)"
 
-RUN apt -qq update -y
-
+# Copy setup script
 COPY ./setup.sh /setup.sh
 
+# Run setup script
 CMD ["/bin/bash", "/setup.sh"]

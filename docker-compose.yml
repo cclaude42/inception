@@ -2,11 +2,10 @@ version: "3"
 services:
   nginx:
     build: ./requirements/nginx
-    env_file: .env
+    restart: always
     tty: true
     ports:
-      - "9080:80"
-      - "9090:443"
+      - "443:443"
     networks:
       - front
     volumes:
@@ -15,8 +14,9 @@ services:
       - wordpress
   wordpress:
     build: ./requirements/wordpress
-    env_file: .env
+    restart: always
     tty: true
+    env_file: .env
     ports:
       - "9000:9000"
     networks:
@@ -28,8 +28,9 @@ services:
       - mariadb
   mariadb:
     build: ./requirements/mariadb
-    env_file: .env
+    restart: always
     tty: true
+    env_file: .env
     ports:
       - "3306:3306"
     networks:
@@ -37,8 +38,8 @@ services:
     volumes:
       - "dbfiles:/var/lib/mysql"
 networks:
-  front: {}
-  back: {}
+  front:
+  back:
 volumes:
   wpfiles:
     driver: local

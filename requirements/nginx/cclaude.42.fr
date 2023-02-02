@@ -1,21 +1,19 @@
 server {
+  listen 443 ssl;
+  ssl_protocols TLSv1.2 TLSv1.3;
+  ssl_certificate /etc/ssl/certs/inception.crt;
+  ssl_certificate_key /etc/ssl/private/inception.key;
 
-  listen 80;
-
+  server_name cclaude.42.fr www.cclaude.42.fr;
   root /var/www/html;
   index index.php index.html index.nginx-debian.html;
-  access_log /var/log/nginx/example_access.log;
-  error_log /var/log/nginx/example_error.log;
 
   location / {
-    try_files $uri $uri/ /index.php$is_args$args;
-  }
+	  try_files $uri $uri/ =404;
+	}
 
   location ~ \.php$ {
-    include fastcgi_params;
+    include snippets/fastcgi-php.conf;
     fastcgi_pass wordpress:9000;
-    fastcgi_index index.php;
-    fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
   }
-
 }
