@@ -1,7 +1,7 @@
 version: "3"
 services:
   nginx:
-    build: ./requirements/nginx
+    build: ./srcs/nginx
     restart: always
     tty: true
     ports:
@@ -13,7 +13,7 @@ services:
     depends_on:
       - wordpress
   wordpress:
-    build: ./requirements/wordpress
+    build: ./srcs/wordpress
     restart: always
     tty: true
     env_file: .env
@@ -27,7 +27,7 @@ services:
     depends_on:
       - mariadb
   mariadb:
-    build: ./requirements/mariadb
+    build: ./srcs/mariadb
     restart: always
     tty: true
     env_file: .env
