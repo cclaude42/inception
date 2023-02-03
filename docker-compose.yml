@@ -9,8 +9,10 @@ services:
       - front
     volumes:
       - "wpfiles:/var/www/html"
-  wordpress:
-    build: ./srcs/wordpress
+    depends_on:
+      - php
+  php:
+    build: ./srcs/php
     restart: always
     tty: true
     env_file: .env
@@ -19,6 +21,8 @@ services:
       - back
     volumes:
       - "wpfiles:/var/www/html"
+    depends_on:
+      - mariadb
   mariadb:
     build: ./srcs/mariadb
     restart: always

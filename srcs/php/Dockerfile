@@ -15,6 +15,10 @@ RUN apt -qq install -y gnupg2 ca-certificates apt-transport-https software-prope
 RUN	apt -qq update -y && \
 	apt -qq install -y php8.2 php-fpm php-curl php-gd php-intl php-mbstring php-soap php-xml php-xmlrpc php-zip php-mysql
 
+# Configure PHP-FPM
+RUN echo "listen = 9000" >> /etc/php/8.2/fpm/pool.d/www.conf && \
+	mkdir -p /run/php
+
 # Download Wordpress
 RUN curl -LO https://wordpress.org/latest.tar.gz && \
 	mkdir -p /var/www && \
